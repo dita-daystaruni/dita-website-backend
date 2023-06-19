@@ -17,7 +17,7 @@ const createContact = async (req, res) => {
             instagram: req.body.instagram,
             facebook: req.body.facebook,
             twitter: req.body.twitter,
-            linkedin: req.body.linkedin,
+            linkedIn: req.body.linkedIn,
         });
         res.status(201).json({ message : 'Contact created successfully', contact });
     } catch (error) {

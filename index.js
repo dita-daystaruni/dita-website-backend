@@ -1,6 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
+const mongoose = require('mongoose');
+const User = require('./models/userModel');
+
 
 //Local Imports
 const connectDB = require('./config/db');
@@ -11,6 +14,8 @@ const statementRouter = require('./routes/statementRoutes');
 const leadershipRouter = require('./routes/leadershipRoutes');
 const serviceRouter = require('./routes/serviceRoutes');
 const contactRouter = require('./routes/contactRoutes');
+const userRouter = require('./routes/userRoutes');
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -33,6 +38,9 @@ app.use("/api/v1/statements", statementRouter);
 app.use("/api/v1/leadership", leadershipRouter);
 app.use("/api/v1/services", serviceRouter);
 app.use("/api/v1/contact", contactRouter);
+app.use("/admin", userRouter);
+
+
 
 //listener
 app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`)});
