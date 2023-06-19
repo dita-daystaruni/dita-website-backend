@@ -5,7 +5,8 @@ const createEvent = async (req, res) => {
         !req.body.title ||
         !req.body.description ||
         !req.body.date ||
-        !req.body.location
+        !req.body.location ||
+        !req.body.image
     ) {
         return res.status(400).json({ message: 'All fields are required' });
     }

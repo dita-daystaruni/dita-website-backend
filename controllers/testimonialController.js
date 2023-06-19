@@ -60,7 +60,7 @@ const updateTestimonial = async (req, res) => {
         if (!testimonial) {
             return res.status(404).json({ message: 'Testimonial not found' });
         }
-        const updatedTestimonial = await Testimonial.findByIdAndUpdate({ _id: req.params.id }, req.body);
+        const updatedTestimonial = await Testimonial.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true });
         res.status(200).json({ message: 'Testimonial updated successfully', updatedTestimonial });
     } catch (error) {
         res.status(500).json({ message: 'Unable to update testimonial' });

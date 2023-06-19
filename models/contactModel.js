@@ -7,7 +7,7 @@ const contactSchema = mongoose.Schema(
         instagram: {type: String, required: false},
         facebook: {type: String, required: false},
         twitter: {type: String, required: false},
-        linkedin: {type: String, required: false},
+        linkedIn: {type: String, required: false},
     },
     {timestamps: true}
 );
