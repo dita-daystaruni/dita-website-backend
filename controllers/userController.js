@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const bcrypt = require('bcrypt');
 
 
 const createUser = async (req, res) => {
@@ -12,12 +13,15 @@ const createUser = async (req, res) => {
     }
     
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         const user = await User.create({
             username,
-            password,
+            password: hashedPassword,
             admissionNumber,
         });
-        res.status(201).json({ message: 'User created successfully', username:username, admissionNumber: admissionNumber });
+        res.status(201).json({ message: 'User created successfully', username: username});
     } catch (error) {
         res.status(500).json({ message: "User couldn't be created" });
     }
@@ -32,10 +36,17 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: 'All fields are required' });
         }
         try {
-            const user = await User.findOne({ username: username, password: password});
-            res.status(201).json({ message: 'User logged in successfully', username: username });
+            const user = await User.findOne({ username: username});
+            if (user && (await bcrypt.compare(password, user.password)))
+            {
+                res.status(201).json({ message: 'User logged in successfully', username: username });
+            }
+            else{
+                res.status(400).json({ message: 'Invalid Credentials' });
+            }
+            
         } catch (error) {
-            res.status(500).json({ message: "User couldn't be logged in" });
+            res.status(500).json({ message: error.message });
         }
 };
 
