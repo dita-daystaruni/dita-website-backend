@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
+const allowCors = require('./config/allow-cors');
 
 
 //Local Imports
@@ -19,7 +20,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 //middleware
-app.use(cors());
+app.use(allowCors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
