@@ -26,7 +26,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
     next();
 });
-app.use(cors());
+/* app.use(cors()); */
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
