@@ -37,7 +37,7 @@ app.use("/api/v1/statements", statementRouter);
 app.use("/api/v1/leadership", leadershipRouter);
 app.use("/api/v1/services", serviceRouter);
 app.use("/api/v1/contact", contactRouter);
-app.use("/api/v1/admin", userRouter,allowCors());
+app.use("/api/v1/admin", userRouter);
 
 
 
