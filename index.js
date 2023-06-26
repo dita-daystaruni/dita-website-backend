@@ -20,9 +20,17 @@ const app = express();
 
 
 //middleware
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://dita-website.vercel.app/');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
+    next();
+});
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+
 const PORT = process.env.PORT || 5000;
 
 connectDB();
