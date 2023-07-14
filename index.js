@@ -37,7 +37,7 @@ connectDB();
 app.get('/', (req, res) => res.send('API Working'));
 
 //app routes
-/* app.post('*',requireAuth); //requireAuth middleware will be applied to all routes */
+app.post('*',requireAuth); //requireAuth middleware will be applied to all routes 
 app.use("/api/v1/events", eventRouter);
 app.use("/api/v1/gallery", galleryRouter);
 app.use("/api/v1/testimonials", testimonialRouter);
