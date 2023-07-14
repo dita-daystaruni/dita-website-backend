@@ -1,4 +1,5 @@
 const Event = require('../models/eventModel');
+const moment = require('moment');
 
 const createEvent = async (req, res) => {
     if (
@@ -21,7 +22,7 @@ const createEvent = async (req, res) => {
         });
         res.status(201).json({ message: 'Event created successfully', event });
     } catch (error) {
-        res.status(500).json({ message: "Event couldn't be created" });
+        res.status(500).json({message: error.message});
     }
 };
 
@@ -30,7 +31,7 @@ const getAllEvents = async (req, res) => {
             const event = await Event.find().sort({$natural:-1});
             res.status(200).json({ event });
         } catch (error) {
-            res.status(500).json({ message: "Couldn't fetch events" });
+            res.status(500).json({ message: error.message });
         }
 };
 
@@ -65,7 +66,7 @@ const updateEvent = async (req, res) => {
         const updatedEvent = await Event.findByIdAndUpdate(req.params.id,req.body, {new:true,});
         res.status(200).json({ message: 'Event updated successfully', updatedEvent });
     } catch (error) {
-        res.status(error.status).json({message: "Couldn't delete event" }); // 500
+        res.status(500).json({message: "Couldn't delete event" }); // 500
     }
 };
 
