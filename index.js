@@ -16,6 +16,7 @@ const leadershipRouter = require('./routes/leadershipRoutes');
 const serviceRouter = require('./routes/serviceRoutes');
 const contactRouter = require('./routes/contactRoutes');
 const userRouter = require('./routes/userRoutes');
+const authRoutes = require('./routes/authRoutes');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
 
@@ -37,7 +38,7 @@ connectDB();
 app.get('/', (req, res) => res.send('API Working'));
 
 //app routes
-app.post('*',requireAuth); //requireAuth middleware will be applied to all routes 
+//requireAuth middleware will be applied to all routes 
 app.use("/api/v1/events", eventRouter);
 app.use("/api/v1/gallery", galleryRouter);
 app.use("/api/v1/testimonials", testimonialRouter);
@@ -46,6 +47,7 @@ app.use("/api/v1/leadership", leadershipRouter);
 app.use("/api/v1/services", serviceRouter);
 app.use("/api/v1/contact", contactRouter);
 app.use("/api/v1/admin",requireAuth, userRouter);
+app.use(authRoutes); //authRoutes will be applied to all routes
 
 
 

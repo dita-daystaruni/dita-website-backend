@@ -1,5 +1,5 @@
 const Event = require('../models/eventModel');
-const moment = require('moment');
+
 
 const createEvent = async (req, res) => {
     if (
@@ -19,6 +19,7 @@ const createEvent = async (req, res) => {
             date: req.body.date,
             location: req.body.location,
             image: req.body.image,
+            notes: req.body.notes,
         });
         res.status(201).json({ message: 'Event created successfully', event });
     } catch (error) {
@@ -28,7 +29,7 @@ const createEvent = async (req, res) => {
 
 const getAllEvents = async (req, res) => {
         try {
-            let event = await Event.find().sort({$natural:-1});
+            const event = await Event.find().sort({$natural:-1});
             res.status(200).json({ event });
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -40,7 +41,7 @@ const getEvent = async (req, res) => {
         const event = await Event.find({ _id: req.params.id });
         res.status(200).json({ event });
     } catch (error) {
-        res.status(500).json({ message: "Couldn't find event" });
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -53,7 +54,7 @@ const deleteEvent = async (req, res) => {
         await Event.findByIdAndDelete({ _id: req.params.id });
         res.status(200).json({ message: 'Event deleted successfully' });
     } catch (error) {
-        res.status(500).json({ message: "Couldn't delete event" });
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -66,7 +67,7 @@ const updateEvent = async (req, res) => {
         const updatedEvent = await Event.findByIdAndUpdate(req.params.id,req.body, {new:true,});
         res.status(200).json({ message: 'Event updated successfully', updatedEvent });
     } catch (error) {
-        res.status(500).json({message: "Couldn't delete event" }); // 500
+        res.status(500).json({message: error.message }); // 500
     }
 };
 
