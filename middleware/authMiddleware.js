@@ -16,7 +16,10 @@ const requireAuth = (req, res, next) => {
     else{
         res.send("You are not authorized to view this page.");
     } */
+
+    
     res.send("Welcome to the admin page");
+    next();
 };
 
 const checkUser = (req, res, next) => {
@@ -37,6 +40,7 @@ const checkUser = (req, res, next) => {
         });
     } */
     res.send("Welcome to the admin page");
+    next();
 };
 
 
