@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
 const requireAuth = (req, res, next) => {
-    const token = req.cookies.jwt;
+/*     const token = req.cookies.jwt;
     if (token) {
         jwt.verify(token, process.env.SECRET_KEY, (err, decodedToken) => {
             if (err) {
@@ -15,11 +15,12 @@ const requireAuth = (req, res, next) => {
     }
     else{
         res.send("You are not authorized to view this page.");
-    }
+    } */
+    res.send("Welcome to the admin page");
 };
 
 const checkUser = (req, res, next) => {
-    const token = req.cookies.jwt;
+/*     const token = req.cookies.jwt;
     if (token) {
         jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => {
             if (err) {
@@ -34,7 +35,8 @@ const checkUser = (req, res, next) => {
                 next();
             }
         });
-    }
+    } */
+    res.send("Welcome to the admin page");
 };
 
 
