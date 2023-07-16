@@ -12,11 +12,14 @@ const createEvent = async (req, res) => {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
+    const date = new Date(req.body.date).toDateString();
+
+
     try {
         const event = await Event.create({
             title: req.body.title,
             description: req.body.description,
-            date: req.body.date,
+            date: date,
             location: req.body.location,
             image: req.body.image,
             notes: req.body.notes,
@@ -64,7 +67,7 @@ const updateEvent = async (req, res) => {
         if (!event) {
             return res.status(404).json({ message: 'Event not found' });
         }
-        const updatedEvent = await Event.findByIdAndUpdate(req.params.id,req.body, {new:true,});
+        const updatedEvent = await Event.findByIdAndUpdate(req.params.id,req.body, {new:true});
         res.status(200).json({ message: 'Event updated successfully', updatedEvent });
     } catch (error) {
         res.status(500).json({message: error.message }); // 500
