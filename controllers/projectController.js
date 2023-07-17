@@ -16,6 +16,8 @@ const createProject = async (req, res) => {
             description: req.body.description,
             author: req.body.author,
             category: req.body.category,
+            projectUrl: req.body.projectUrl,
+            githubUrl: req.body.githubUrl,
             image: req.body.image,
         });
         return res.status(201).json({message: "Project created successfully", project});
