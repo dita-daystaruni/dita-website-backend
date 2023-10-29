@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
     {
         username: {type: String, required: true},
         admissionNumber: {type: String, unique:[true, "Admission Number already created"], required: true},
-        password: {type: String, required: true, select: false},
+        password: {type: String, required: true},
     },
     {timestamps: true}
 );

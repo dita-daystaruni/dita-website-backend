@@ -1,5 +1,7 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 
 
 const createUser = async (req, res) => {
@@ -21,8 +23,7 @@ const createUser = async (req, res) => {
             password: hashedPassword,
             admissionNumber,
         });
-        user.password = undefined;
-        res.status(201).json({ message: 'User created successfully', user });
+        res.status(201).json({ message: 'User created successfully', user:{name: user.userName, adm: user.admissionNumber} });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -37,13 +38,16 @@ const loginUser = async (req, res) => {
         return res.status(400).json({ message: 'All fields are required' });
     }
     try {
-        const user = await User.findOne({ admissionNumber: admissionNumber });
-        if (user && (await bcrypt.compare(password, user.password))) {
+        const user = await User.find({ admissionNumber });
+        //compare passwords
+        const validPassword = await bcrypt.compare(password, user[0].password);
+
+        if (user && validPassword) {
             const token = jwt.sign({ id: user._id, adm: user.admissionNumber, userName: user.username }, process.env.JWT_SECRET, {
                 expiresIn: maxAge
             })
-            res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge });
-            res.status(200).json({ user: user._id, username: user.username });
+            res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+            res.status(200).json({ user: user[0]._id, username: user[0].username });
         }
         else {
             res.status(400).json({ message: 'Invalid Credentials' });
