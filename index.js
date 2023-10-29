@@ -50,7 +50,7 @@ app.use("/api/v1/services", serviceRouter);
 app.use("/api/v1/contact", contactRouter);
 app.use("/api/v1/admin", userRouter);
 app.use("/api/v1/projects", projectRouter);
-app.use(authRoutes); //authRoutes will be applied to all routes
+app.use("/dev/admin",authRoutes); //authRoutes will be applied to all routes
 
 
 
