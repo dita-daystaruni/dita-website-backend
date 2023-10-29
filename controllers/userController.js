@@ -30,7 +30,7 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const { admissionNumber, password } = req.body;
-
+    const maxAge = process.env.MAX_AGE;
     if (
         !admissionNumber || !password
     ) {
@@ -39,8 +39,10 @@ const loginUser = async (req, res) => {
     try {
         const user = await User.findOne({ admissionNumber: admissionNumber });
         if (user && (await bcrypt.compare(password, user.password))) {
-            const token = createToken(user._id);
-            res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+            const token = jwt.sign({ id: user._id, adm: user.admissionNumber, userName: user.username }, process.env.SECRET_KEY, {
+                expiresIn: maxAge
+            })
+            res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge });
             res.status(200).json({ user: user._id, username: user.username });
         }
         else {

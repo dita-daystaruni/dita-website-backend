@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 
 const maxAge = process.env.MAX_AGE;
 
-const createToken = (id) => {
-    return jwt.sign({ id }, process.env.SECRET_KEY, {
+const createToken = (id,username) => {
+    return jwt.sign({ id, }, process.env.SECRET_KEY, {
         expiresIn: maxAge
     });
 };
