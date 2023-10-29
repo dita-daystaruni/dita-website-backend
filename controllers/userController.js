@@ -39,7 +39,7 @@ const loginUser = async (req, res) => {
     try {
         const user = await User.findOne({ admissionNumber: admissionNumber });
         if (user && (await bcrypt.compare(password, user.password))) {
-            const token = jwt.sign({ id: user._id, adm: user.admissionNumber, userName: user.username }, process.env.SECRET_KEY, {
+            const token = jwt.sign({ id: user._id, adm: user.admissionNumber, userName: user.username }, process.env.JWT_SECRET, {
                 expiresIn: maxAge
             })
             res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge });
