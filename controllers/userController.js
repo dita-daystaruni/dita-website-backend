@@ -47,7 +47,7 @@ const loginUser = async (req, res) => {
                 expiresIn: maxAge
             })
             res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-            res.status(200).json({ user: user[0]._id, username: user[0].username });
+            res.status(200).json({ userID: user[0]._id, username: user[0].username, token:token });
         }
         else {
             res.status(400).json({ message: 'Invalid Credentials' });
