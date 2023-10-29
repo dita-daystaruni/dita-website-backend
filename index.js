@@ -48,9 +48,8 @@ app.use("/api/v1/statements", statementRouter);
 app.use("/api/v1/leadership", leadershipRouter);
 app.use("/api/v1/services", serviceRouter);
 app.use("/api/v1/contact", contactRouter);
-app.use("/api/v1/admin", userRouter);
 app.use("/api/v1/projects", projectRouter);
-app.use("/dev/admin",authRoutes); //authRoutes will be applied to all routes
+app.use("/dev/admin",userRouter); //authRoutes will be applied to all routes
 
 
 
