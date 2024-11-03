@@ -6,11 +6,12 @@ const {
     updateUser,
     loginUser
 } = require('../controllers/userController');
+const { checkUser } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-
-router.post("/create", createUser);
+/* router.get("*", checkUser); */
+router.post("/create" ,createUser);
 router.post("/login", loginUser);
 router.get("/all", getAllUsers);
 router.put("/:id", updateUser);
